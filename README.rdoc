@@ -46,6 +46,7 @@ Here's an example for Facebook:
     oauth2_client_secret  "APPLICATION_SECRET"
     oauth2_site           "https://graph.facebook.com"
     oauth2_scope          "offline_access,email,user_birthday"
+    oauth2_cannot_find_record_message "We have no record of you in our database, please sign up first."
   end
 
 It's important to note here that if you don't request offline_access permissions from your OAuth2 provider the access token will expire either at a specific time or upon logout from the provider itself. Some providers allow refresh tokens to be issued, but some (Facebook, for example) does not. Refresh token handling hasn't been implemented in authlogic_oauth2 yet, so make sure you request offline_access.

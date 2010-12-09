@@ -44,6 +44,11 @@ module AuthlogicOauth2
         rw_config(:oauth2_scope, value, '')
       end
       alias_method :oauth2_scope=, :oauth2_scope
+      
+      def oauth2_cannot_find_record_message(value = nil)
+        rw_config(:oauth2_cannot_find_record_message, value, "Could not find user in our database, have you registered with your Oauth2 account?")
+      end
+      alias_method :oauth2_cannot_find_record_message=, :oauth2_cannot_find_record_message
     end
 
     module Methods
@@ -92,7 +97,7 @@ module AuthlogicOauth2
         end
 
         if !attempted_record
-          errors.add(:base, "Could not find user in our database, have you registered with your Oauth2 account?")
+          errors.add(:base, self.class.oauth2_cannot_find_record_message)
         end
       end
 
