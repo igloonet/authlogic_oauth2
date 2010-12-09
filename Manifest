@@ -1,7 +1,6 @@
 Manifest
 README.rdoc
 Rakefile
-authlogic_oauth2.gemspec
 init.rb
 lib/authlogic_oauth2.rb
 lib/authlogic_oauth2/acts_as_authentic.rb
