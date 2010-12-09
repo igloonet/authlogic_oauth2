@@ -41,10 +41,11 @@ module AuthlogicOauth2
           validates_length_of_password_confirmation_field_options validates_length_of_password_confirmation_field_options.merge(:if => :validate_password_with_oauth2?)
           validates_length_of_login_field_options validates_length_of_login_field_options.merge(:if => :validate_password_with_oauth2?)
           validates_format_of_login_field_options validates_format_of_login_field_options.merge(:if => :validate_password_with_oauth2?)
+          
+          validates_format_of_email_field_options(validates_format_of_email_field_options.merge(:unless=>:using_oauth2?))
+          validates_length_of_email_field_options(validates_length_of_email_field_options.merge(:unless=>:using_oauth2?))
+          validates_uniqueness_of_email_field_options(validates_uniqueness_of_email_field_options.merge(:unless=>:using_oauth2?))
         end
-
-        # email needs to be optional for oauth2
-        klass.validate_email_field = false
       end
 
       def save(perform_validation = true, &block)
