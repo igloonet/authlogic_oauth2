@@ -61,7 +61,7 @@ module AuthlogicOauth2
         # yield(result) if block_given?
         if block_given?
           unless result
-            if oauth2_token && (record = self.class.where(oauth2_token_field => oauth2_token).first)
+            if oauth2_token && (record = self.class.first(:conditions=>["#{oauth2_token_field} = ?", oauth2_token]))
               session_class.create(record)
               result = true
             end
