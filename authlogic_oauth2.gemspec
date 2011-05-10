@@ -8,7 +8,8 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Andrew Hite"]
   s.email       = ["andrew@andrew-hite.com"]
-
+  s.summary     = ""
+  s.description = ""
   s.add_dependency('authlogic')
   s.add_dependency('oauth2')
 
