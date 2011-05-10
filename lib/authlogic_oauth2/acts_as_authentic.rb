@@ -48,8 +48,8 @@ module AuthlogicOauth2
         end
       end
 
-      def save(perform_validation = true, &block)
-        if perform_validation && block_given? && redirecting_to_oauth2_server?
+      def save(options = {}, &block)
+        (options === Hash ? options[:validate] != false : options) && block_given? && redirecting_to_oauth2_server?
           # Save attributes so they aren't lost during the authentication with the oauth2 server
           session_class.controller.session[:authlogic_oauth2_attributes] = attributes.reject!{|k, v| v.blank?}
           redirect_to_oauth2
