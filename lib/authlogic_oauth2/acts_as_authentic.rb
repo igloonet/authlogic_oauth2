@@ -49,7 +49,7 @@ module AuthlogicOauth2
       end
 
       def save(options = {}, &block)
-        (options === Hash ? options[:validate] != false : options) && block_given? && redirecting_to_oauth2_server?
+        if (options === Hash ? options[:validate] != false : options) && block_given? && redirecting_to_oauth2_server?
           # Save attributes so they aren't lost during the authentication with the oauth2 server
           session_class.controller.session[:authlogic_oauth2_attributes] = attributes.reject!{|k, v| v.blank?}
           redirect_to_oauth2
@@ -87,7 +87,7 @@ module AuthlogicOauth2
         access_token
       end
 
-    private
+      private
 
       def authenticating_with_oauth2?
         # Controller isn't available in all contexts (e.g. irb)
@@ -95,8 +95,8 @@ module AuthlogicOauth2
         
         # Initial request when user presses one of the button helpers
         (session_class.controller.params && !session_class.controller.params[:register_with_oauth2].blank?) ||
-        # When the oauth2 provider responds and we made the initial request
-        (oauth2_response && session_class.controller.session && session_class.controller.session[:oauth2_request_class] == self.class.name)
+          # When the oauth2 provider responds and we made the initial request
+          (oauth2_response && session_class.controller.session && session_class.controller.session[:oauth2_request_class] == self.class.name)
       end
 
       def authenticate_with_oauth2
