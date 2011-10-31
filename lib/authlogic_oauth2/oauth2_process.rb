@@ -18,7 +18,7 @@ module AuthlogicOauth2
     end
 
     def redirect_to_oauth2
-      authorize_url = oauth2_client.web_server.authorize_url(:redirect_uri => build_oauth2_callback_url, :scope => oauth2_scope)
+      authorize_url = oauth2_client.auth_code.authorize_url(:redirect_uri => build_oauth2_callback_url, :scope => oauth2_scope)
 
       # Store the class which is redirecting, so we can ensure other classes
       # don't get confused and attempt to use the response
@@ -35,7 +35,7 @@ module AuthlogicOauth2
     end
 
     def generate_oauth2_access_token
-      oauth2_client.web_server.get_access_token(oauth2_controller.params[:code], :redirect_uri => build_oauth2_callback_url)
+      oauth2_client.auth_code.get_access_token(oauth2_controller.params[:code], :redirect_uri => build_oauth2_callback_url)
     end
 
     def oauth2_response
